@@ -7,6 +7,10 @@ import numpy as np
 
 '''
 The boards that show each state
+Think my row/col logic is a little backwards, but doesnt seem to matter too often
+This is also not the point of the code, the algo is the only thing that matters
+
+TODO: Make sure full cols dont get used, swap row and col stuff
 '''
 class Board:
     def __init__(self):
@@ -42,12 +46,12 @@ class Board:
                 return True
 
         for i in range(-5, 7): # diag
-            row_str = np.array2string(row)
+            row_str = np.array2string(np.diag(self.board, i))
             if "2 2 2 2" in row_str or "1 1 1 1" in row_str:
                 return True
 
         for i in range(-5, 7): # other diag
-            row_str = np.array2string(row)
+            row_str = np.array2string(np.diag(self.board.T, i))
             if "2 2 2 2" in row_str or "1 1 1 1" in row_str:
                 return True
 
@@ -81,3 +85,19 @@ class Board:
         self.value -= 1000 if "2 2 2" in row_str else 0
         self.value -= 500 if "2 2" in row_str else 0
         self.value -= 1 if "2" in row_str else 0
+
+
+    def print_board(self):
+        print()
+        print(" 0 1 2 3 4 5 6")
+        for row in self.board:
+            print("|", end="")
+            for pos in row:
+                if pos == 0:
+                    print(" ", end="|")
+                elif pos == 1:
+                    print("X", end="|")
+                else:
+                    print("O", end="|")
+            print("")
+        print("---------------\n")
