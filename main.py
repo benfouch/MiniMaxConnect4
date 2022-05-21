@@ -1,11 +1,17 @@
 '''
 Author: Benjamin Fouch
 Date:   May 20 2022
+Only "code" used: https://en.wikipedia.org/wiki/Minimax#Pseudocode
 '''
 import numpy as np
 from Board import Board
 from MiniMax import Minimax
 
+'''
+the game play is not perfect, but thats okay because thats not what this is about
+if you want to break it, over flow a col or win at the same time as the algo
+non numberic input will break it too
+'''
 def main():
     b = Board()
     m = Minimax()
@@ -25,12 +31,6 @@ def main():
             print("Enter a valid move")
 
     print("GAME OVER")
-
-
-
-# for debugging in console w/o the visuals
-def print_b(b):
-    print(np.array(list(map(lambda row : list(map( lambda pos : " " if pos == 0 else np.str_(pos), row)), b))))
 
 if __name__=="__main__":
     main()

@@ -1,17 +1,17 @@
 '''
 Author: Benjamin Fouch
 Date:   May 20 2022
+Only "code" used: https://en.wikipedia.org/wiki/Minimax#Pseudocode
 '''
 import numpy as np
 import copy
 
-# TOPO: Make static? could just pass in depth each time instead
+'''
+Mini max algo with Alpha beta pruning
+'''
 class Minimax:
-    # def __init__(self):
-        # space holder
-
-
     def find_best(self, board):
+        print("Col: Score:")
         best_tup = (-1, float('-inf'))
         for i in range(7):
             board.make_move(i, 1)

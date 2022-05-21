@@ -1,13 +1,17 @@
 '''
 Author: Benjamin Fouch
 Date:   May 20 2022
+Only "code" used: https://en.wikipedia.org/wiki/Minimax#Pseudocode
 '''
 import numpy as np
 
-
+'''
+The boards that show each state
+'''
 class Board:
     def __init__(self):
         self.board = np.zeros((6,7), dtype=np.int8)
+
 
     # should make it easier to plug into minimax later
     def get_board(self):
