@@ -3,11 +3,55 @@ Author: Benjamin Fouch
 Date:   May 20 2022
 '''
 import numpy as np
+import copy
 
 # TOPO: Make static? could just pass in depth each time instead
 class Minimax:
-    def __init__(self, depth):
-        self.d = depth
+    # def __init__(self):
+        # space holder
 
-    def calc_move(self, board):# -> np.array
-        print("test")
+
+    def find_best(self, board):
+        best_tup = (-1, float('-inf'))
+        for i in range(7):
+            board.make_move(i, 1)
+            val = self.calc_vals(board, 4, True, float('-inf'), float('inf'))
+            board.un_make_move(i)
+
+            print(i, val)
+
+            if best_tup[1] < val:
+                best_tup = (i, val)
+
+        return best_tup
+
+
+    def calc_vals(self, board, depth, maxingPlayer, a, b):
+        if depth == 0 or board.winner_found():
+            return board.get_value()
+        if maxingPlayer:
+            value = float('-inf')
+            for i in range(7):
+                if not board.winner_found():
+                    board.make_move(i, 1)
+                    next_v = self.calc_vals(copy.deepcopy(board), depth-1, False, a, b)
+                    value = next_v if next_v > value else value
+                    board.un_make_move(i)
+                    if value >= b:
+                        break
+                    a = a if a > value else value
+
+            return value
+        else:
+            value = float('inf')
+            for i in range(7):
+                if not board.winner_found():
+                    board.make_move(i, 2)
+                    next_v = self.calc_vals(copy.deepcopy(board), depth-1, True, a, b)
+                    value = next_v if next_v < value else value
+                    board.un_make_move(i)
+                    if value <= a:
+                        break
+                    b = b if b < value else value
+
+            return value
